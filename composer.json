@@ -1,0 +1,15 @@
+{
+    "name": "andrey-bar/docker-multi-stage",
+    "description": "Example multi-stage build",
+    "license": "MIT",
+    "keywords": [],
+    "require": {
+        "php": ">=8.3",
+        "symfony/console": "6.4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
