@@ -56,7 +56,7 @@ jobs:
           SLACK_CHANNEL: test-notification
           SLACK_COLOR: 'success' # or a specific color like 'good' or '#FF00FF'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          SLACK_MESSAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} / ${{ steps.meta.outputs.tags }} / ${{ steps.meta.outputs.labels }}
           SLACK_TITLE: Post Title
           SLACK_USERNAME: test
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
