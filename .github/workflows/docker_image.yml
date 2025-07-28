@@ -50,10 +50,6 @@ jobs:
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
 
-      - name: Prepare data
-        id: process-data
-        run: echo fromJSON(steps.meta.outputs)
-
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
