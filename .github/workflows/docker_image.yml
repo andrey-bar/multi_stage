@@ -52,7 +52,7 @@ jobs:
 
       - name: Prepare data
         id: process-data
-        run: outputs=fromJSON(steps.meta.outputs)
+        run: echo fromJSON(steps.meta.outputs)
 
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
@@ -60,7 +60,7 @@ jobs:
           SLACK_CHANNEL: test-notification
           SLACK_COLOR: 'success'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: tags "${{ steps.meta.outputs.tags }}" / labels ${{ steps.meta.outputs.labels }} / ${{ fromJSON(steps.meta.outputs) }} / ${{ steps.process-data.outputs }}
+          SLACK_MESSAGE: tags "${{ steps.meta.outputs.tags }}" / labels ${{ steps.meta.outputs.labels }}
           SLACK_TITLE: Post Title
           SLACK_USERNAME: test
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
