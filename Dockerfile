@@ -1,4 +1,4 @@
-FROM php:8.3-alpine AS deps
+FROM php:8.3-alpine AS build
 
 # install composer
 RUN apk update \
@@ -25,4 +25,3 @@ FROM php:8.3-alpine
 COPY --from=deps /app /app
 
 CMD ["php", "/app/bin/hello"]
-
