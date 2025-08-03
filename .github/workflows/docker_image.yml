@@ -64,8 +64,15 @@ jobs:
       - name: Build docker image
         run: |
           sudo docker build -t andybar69/githubaction:v1 .
+          sudo docker run -it andybar69/githubaction:v1
 
       - name: Create KinD Cluster
         uses: helm/kind-action@v1.12.0 # Use the latest stable version
-        with:
-          cluster_name: my-kind-cluster
+        #with:
+        #  cluster_name: my-kind-cluster
+
+      - name: Configuring and testing the Installation
+        run: |
+          kubectl cluster-info --context kind-kind
+          kind get kubeconfig --internal >$HOME/.kube/config
+          kubectl get nodes
