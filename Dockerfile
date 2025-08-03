@@ -22,6 +22,6 @@ FROM php:8.3-alpine
 
 # we don't need to do anything here by copy the `/app` folder from the
 # `deps` stage above. Its /app folder will have all the vendor files etc
-COPY --from=deps /app /app
+COPY --from=build /app /app
 
 CMD ["php", "/app/bin/hello"]
