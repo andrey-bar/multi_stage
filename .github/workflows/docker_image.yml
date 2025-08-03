@@ -63,7 +63,7 @@ jobs:
 
       - name: Build docker image
         run: |
-          sudo docker build Dockerfile -t andybar69/githubaction:v1 .
+          sudo docker build -t andybar69/githubaction:v1 .
 
       - name: Create KinD Cluster
         uses: helm/kind-action@v1.12.0 # Use the latest stable version
