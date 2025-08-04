@@ -75,4 +75,5 @@ jobs:
 
       - name: Configuring and testing the Installation
         run: |
+          kubectl cluster-info --context kind-my-kind-cluster
           kubectl get nodes
