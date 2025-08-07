@@ -17,7 +17,7 @@ RUN apk update \
 ADD src /app/src
 ADD bin /app/bin
 ADD composer.* /app/
-ADD my-pod.yml /app/
+ADD my-pod.yaml /app/
 WORKDIR /app
 
 # Install deps
