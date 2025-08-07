@@ -20,9 +20,12 @@ jobs:
         uses: medyagh/setup-minikube@latest
         id: minikube
 
-      - name: Build image
+      - name: Minikube status
         run: |
           minikube status
+
+      - name: Build image
+        run: |
           minikube image build -t andybar69/githubaction:v1 .
 
       - name: Deploy to minikube
