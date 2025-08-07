@@ -26,6 +26,10 @@ jobs:
           config: .github/kind-config.yaml
           cluster_name: my-kind-cluster
 
+      - name: Load image
+        run: |
+          kind load docker-image andybar69/githubaction:v1 --name my-kind-cluster
+
       - name: Configuring and testing the Installation
         run: |
           kubectl cluster-info --context kind-my-kind-cluster
