@@ -71,7 +71,10 @@ jobs:
           docker build -t andybar69/githubaction:v1 --target=deps .
           docker images
           which composer
-          ls -la /app
+
+      - name: Run docker image
+        run: |
+          docker run -it andybar69/githubaction:v1 --name=test-docker
 
       - name: Create KinD Cluster
         uses: helm/kind-action@v1.12.0 # Use the latest stable version
