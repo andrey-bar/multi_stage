@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-config
+data:
+  # database_url: "jdbc:mysql://mysql-service:3306/mydb"
+  log_level: "INFO"
+  app_settings.properties: |
+    setting1=valueA
+    setting2=valueB

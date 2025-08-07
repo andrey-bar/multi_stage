@@ -30,7 +30,7 @@ jobs:
 
       - name: Deploy to minikube
         run: |
-          kubectl apply -f my-pod.yaml
+          kubectl apply -f my-pod.yaml -f my-configmap.yaml
           kubectl wait --for=condition=ready pod -l app=my-app-pod
 
       - name: kubectl

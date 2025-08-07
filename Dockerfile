@@ -18,6 +18,7 @@ ADD src /app/src
 ADD bin /app/bin
 ADD composer.* /app/
 ADD my-pod.yaml /app/
+ADD my-configmap.yaml /app/
 WORKDIR /app
 
 # Install deps
