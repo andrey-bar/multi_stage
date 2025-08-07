@@ -1,0 +1,23 @@
+name: Test minikube installation
+
+#on:
+#  release:
+#    types: [published]
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  setup_minikube:
+    name: test minikube setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Minikube
+        uses: medyagh/setup-minikube@latest
+
+      - name: kubectl
+        run: kubectl get pods -A
