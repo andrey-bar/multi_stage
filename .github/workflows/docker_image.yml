@@ -61,10 +61,15 @@ jobs:
       #    SLACK_USERNAME: test
       #    SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
 
-      - name: Build docker image
+      #- name: Build docker image
+      #  run: |
+      #    docker build -t andybar69/githubaction:v1 .
+      #    docker images
+
+      - name: Build docker image as build
         run: |
-          docker build -t andybar69/githubaction:v1 .
-          docker images
+          docker build -t andybar69/githubaction:v1 --target=build .
+          ls -la /app/vendor
 
       - name: Create KinD Cluster
         uses: helm/kind-action@v1.12.0 # Use the latest stable version
