@@ -21,6 +21,7 @@ jobs:
         with:
           config: .github/kind-config.yaml
           cluster_name: my-kind-cluster
+          node_image: andybar69/githubaction:v1
 
       - name: Configuring and testing the Installation
         run: |
