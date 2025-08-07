@@ -25,5 +25,9 @@ jobs:
           minikube status
           minikube image build -t andybar69/githubaction:v1 .
 
+      - name: Deploy to minikube
+        run: |
+          kubectl apply -f my-pod.yaml
+
       - name: kubectl
         run: kubectl get pods -A

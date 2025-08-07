@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app-pod
+spec:
+  containers:
+    - name: my-app-container
+      image: andybar69/githubaction:v1
+      imagePullPolicy: Never
