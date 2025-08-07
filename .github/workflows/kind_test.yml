@@ -1,0 +1,28 @@
+name: Test minikube installation
+
+#on:
+#  release:
+#    types: [published]
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  setup_kind:
+    name: Test kind setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create KinD Cluster
+        uses: helm/kind-action@v1.12.0 # Use the latest stable version
+        with:
+          config: .github/kind-config.yaml
+          cluster_name: my-kind-cluster
+        #  node_image: andybar69/githubaction:v1
+
+      - name: Configuring and testing the Installation
+        run: |
+          kubectl cluster-info --context kind-my-kind-cluster
+
+      - name: kubectl
+        run: kubectl get pods -A
