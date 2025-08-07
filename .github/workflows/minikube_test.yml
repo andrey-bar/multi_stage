@@ -31,7 +31,6 @@ jobs:
       - name: Deploy to minikube
         run: |
           kubectl apply -f my-pod.yaml -f my-configmap.yaml
-          kubectl wait --for=condition=ready pod/my-app-pod --timeout=90s
 
       - name: kubectl
         run: kubectl get pods -A
