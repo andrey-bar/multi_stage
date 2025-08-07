@@ -16,12 +16,15 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
 
+      - name: Build docker image as prod
+        run: |
+          docker build -t andybar69/githubaction:v1 .
+
       - name: Create KinD Cluster
         uses: helm/kind-action@v1.12.0 # Use the latest stable version
         with:
           config: .github/kind-config.yaml
           cluster_name: my-kind-cluster
-          node_image: andybar69/githubaction:v1
 
       - name: Configuring and testing the Installation
         run: |
