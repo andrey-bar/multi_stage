@@ -1,4 +1,4 @@
-FROM php:8.3-alpine AS build
+FROM php:8.3-alpine AS deps
 
 # install composer
 RUN apk update \
@@ -7,6 +7,11 @@ RUN apk update \
     && wget -q https://composer.github.io/installer.sha384sum -O installer.sha384sum \
     && sha384sum installer.sha384sum \
     && php composer-setup.php --install-dir /usr/local/bin
+
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install deps
+# RUN composer install --no-dev --classmap-authoritative
 
 # Add our application files here
 ADD src /app/src
@@ -22,6 +27,6 @@ FROM php:8.3-alpine
 
 # we don't need to do anything here by copy the `/app` folder from the
 # `deps` stage above. Its /app folder will have all the vendor files etc
-COPY --from=build /app /app
+COPY --from=deps /app /app
 
 CMD ["php", "/app/bin/hello"]
