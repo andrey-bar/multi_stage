@@ -49,10 +49,10 @@ jobs:
       - name: Check crashed pods
         id: check_crashed_pods
         run: |
-          crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l) >> "$GITHUB_OUTPUT"
+          crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l) >> $env:GITHUB_OUTPUT
           crashed_pods_list=$(kubectl get pods -A | awk 'NR!=1 && $4 != "Running" {print $1"/"$2}')
           echo "Crashed pods: $crashed_pods_count"
-          echo "$crashed_pods_list"
+          echo "Crashed pods list: $crashed_pods_list"
 
       - name: Slack Notify
         run: |
