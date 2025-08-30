@@ -30,7 +30,7 @@ jobs:
 
       - name: Deploy to minikube
         run: |
-          minikube kubectl apply -f test_pod.yaml
+          kubectl apply -f test_pod.yaml
 
   #check_minikube:
   #  name: Check minikube
