@@ -32,10 +32,10 @@ jobs:
         run: |
           kubectl apply -f test_pod.yaml -f my-configmap.yaml
 
-  check_minikube:
-    name: Check minikube
-    runs-on: ubuntu-latest
-    steps:
+  #check_minikube:
+  #  name: Check minikube
+  #  runs-on: ubuntu-latest
+  #  steps:
       - name: kubectl
         run: kubectl get pods -A
 
