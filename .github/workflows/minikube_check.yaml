@@ -55,7 +55,7 @@ jobs:
           echo "$crashed_pods_list"
 
       - name: Slack Notify
-        if: steps.check_crashed_pods.crashed_pods_count > 0
+        if: steps.check_crashed_pods.outputs.crashed_pods_count > 0
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: test-notification
