@@ -49,19 +49,22 @@ jobs:
       - name: Check crashed pods
         id: check_crashed_pods
         run: |
-          crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l) >> $env:GITHUB_OUTPUT
+          crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l) >> "$GITHUB_OUTPUT"
           crashed_pods_list=$(kubectl get pods -A | awk 'NR!=1 && $4 != "Running" {print $1"/"$2}')
           echo "Crashed pods: $crashed_pods_count"
           echo "$crashed_pods_list"
 
       - name: Slack Notify
-        if: steps.check_crashed_pods.outputs.crashed_pods_count > 0
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: test-notification
-          SLACK_COLOR: 'red'
-          SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: Some of pods have crashed
-          SLACK_TITLE: Pods issue
-          SLACK_USERNAME: test
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
+        run: |
+          echo ${steps.check_crashed_pods.outputs.crashed_pods_count}
+          echo steps.check_crashed_pods.outputs.crashed_pods_count
+        #if: steps.check_crashed_pods.outputs.crashed_pods_count > 0
+        #uses: rtCamp/action-slack-notify@v2
+        #env:
+        #  SLACK_CHANNEL: test-notification
+        #  SLACK_COLOR: 'red'
+        #  SLACK_ICON: https://github.com/rtCamp.png?size=48
+        #  SLACK_MESSAGE: Some of pods have crashed
+        #  SLACK_TITLE: Pods issue
+        #  SLACK_USERNAME: test
+        #  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
