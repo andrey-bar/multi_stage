@@ -32,6 +32,9 @@ jobs:
         run: |
           kubectl apply -f test_pod.yaml
 
+      - name: Waiting for pod
+        run: kubectl wait --for=condition=ready pod -l app=ubuntu --timeout=300s
+
   #check_minikube:
   #  name: Check minikube
   #  runs-on: ubuntu-latest
