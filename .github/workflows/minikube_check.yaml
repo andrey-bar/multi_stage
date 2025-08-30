@@ -1,0 +1,51 @@
+name: Minikube check pods
+
+#on:
+#  release:
+#    types: [published]
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  setup_minikube:
+    name: test minikube setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Minikube
+        uses: medyagh/setup-minikube@latest
+        id: minikube
+
+      - name: Minikube status
+        run: |
+          minikube status
+
+      - name: Build image
+        run: |
+          minikube image build -t andybar69/githubaction:v1 .
+
+      - name: Deploy to minikube
+        run: |
+          kubectl apply -f test_pod.yaml -f my-configmap.yaml
+
+  check_minikube:
+    name: Check minikube
+    runs-on: ubuntu-latest
+    steps:
+      - name: kubectl
+        run: kubectl get pods -A
+
+      - name: Service list
+        run: |
+          minikube service list
+
+      - name: Check crashed pods
+        run: |
+          crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l)
+          crashed_pods_list=$(kubectl get pods -A | awk 'NR!=1 && $4 != "Running" {print $1"/"$2}')
+          echo "Crashed pods in k3s: $crashed_pods_count"
+          echo "$crashed_pods_list"
