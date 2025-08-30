@@ -30,7 +30,7 @@ jobs:
 
       - name: Deploy to minikube
         run: |
-          kubectl apply -f test_pod.yaml -f my-configmap.yaml
+          minikube kubectl apply -f test_pod.yaml
 
   #check_minikube:
   #  name: Check minikube
@@ -47,5 +47,5 @@ jobs:
         run: |
           crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l)
           crashed_pods_list=$(kubectl get pods -A | awk 'NR!=1 && $4 != "Running" {print $1"/"$2}')
-          echo "Crashed pods in k3s: $crashed_pods_count"
+          echo "Crashed pods: $crashed_pods_count"
           echo "$crashed_pods_list"

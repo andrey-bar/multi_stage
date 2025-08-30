@@ -9,6 +9,6 @@ spec:
     - image: ghcr.io/pluhin/busy-box:latest
       command:
         - "sleep"
-        - "120"
+        - "1000"
       imagePullPolicy: IfNotPresent
       name: ubuntu-default
