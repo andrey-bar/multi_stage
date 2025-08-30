@@ -32,14 +32,14 @@ jobs:
         run: |
           kubectl apply -f test_pod.yaml
 
-      - name: Waiting for pod
-        run: kubectl wait --for=condition=ready pod -l app=ubuntu --timeout=300s
+      #- name: Waiting for pod
+      #  run: kubectl wait --for=condition=ready pod -l app=ubuntu --timeout=300s
 
   #check_minikube:
   #  name: Check minikube
   #  runs-on: ubuntu-latest
   #  steps:
-      - name: kubectl
+      - name: List pods
         run: kubectl get pods -A
 
       - name: Service list
@@ -47,8 +47,21 @@ jobs:
           minikube service list
 
       - name: Check crashed pods
+        id: check_crashed_pods
         run: |
           crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l)
           crashed_pods_list=$(kubectl get pods -A | awk 'NR!=1 && $4 != "Running" {print $1"/"$2}')
           echo "Crashed pods: $crashed_pods_count"
           echo "$crashed_pods_list"
+
+      - name: Notify
+        if: steps.check_crashed_pods.crashed_pods_count > 0
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: test-notification
+          SLACK_COLOR: 'red'
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
+          SLACK_MESSAGE: Some of pods have crashed
+          SLACK_TITLE: Pods issue
+          SLACK_USERNAME: test
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
