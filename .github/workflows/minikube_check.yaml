@@ -51,16 +51,18 @@ jobs:
       - name: Check crashed pods
         id: check_crashed_pods
         run: |
-          crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l) >> "$GITHUB_OUTPUT"
+          echo "crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l)" >> "$GITHUB_OUTPUT"
           crashed_pods_list=$(kubectl get pods -A | awk 'NR!=1 && $4 != "Running" {print $1"/"$2}')
           echo "Crashed pods: $crashed_pods_count"
           echo "Crashed pods list: $crashed_pods_list"
 
+      - name: Access it
+        run: |
+          echo "the secret number is  ${{ steps.check_crashed_pods.outputs.crashed_pods_count }}"
+
       - name: Slack Notify
         run: |
           echo ${{ steps.check_crashed_pods.outputs.crashed_pods_count }}
-          echo "$steps.check_crashed_pods.outputs.crashed_pods_count"
-          echo "$GITHUB_OUTPUT"
         #if: steps.check_crashed_pods.outputs.crashed_pods_count > 0
         #uses: rtCamp/action-slack-notify@v2
         #env:
