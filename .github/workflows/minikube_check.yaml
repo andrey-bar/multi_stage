@@ -61,15 +61,13 @@ jobs:
           echo "the secret number is  ${{ steps.check_crashed_pods.outputs.crashed_pods_count }}"
 
       - name: Slack Notify
-        run: |
-          echo ${{ steps.check_crashed_pods.outputs.crashed_pods_count }}
-        #if: steps.check_crashed_pods.outputs.crashed_pods_count > 0
-        #uses: rtCamp/action-slack-notify@v2
-        #env:
-        #  SLACK_CHANNEL: test-notification
-        #  SLACK_COLOR: 'red'
-        #  SLACK_ICON: https://github.com/rtCamp.png?size=48
-        #  SLACK_MESSAGE: Some of pods have crashed
-        #  SLACK_TITLE: Pods issue
-        #  SLACK_USERNAME: test
-        #  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
+        if: steps.check_crashed_pods.outputs.crashed_pods_count > 0
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: test-notification
+          SLACK_COLOR: 'red'
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
+          SLACK_MESSAGE: Some of pods have crashed
+          SLACK_TITLE: Pods issue
+          SLACK_USERNAME: test
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
