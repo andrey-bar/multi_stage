@@ -60,6 +60,7 @@ jobs:
       - name: Access it
         run: |
           echo "the secret number is  ${{ steps.check_crashed_pods.outputs.crashed_pods_count }}"
+          echo "slack : ${{ secrets.SLACK_WEBHOOK_URL }}"
 
       - name: Slack Notify
         if: steps.check_crashed_pods.outputs.crashed_pods_count > 0
