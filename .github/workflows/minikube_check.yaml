@@ -52,6 +52,7 @@ jobs:
         id: check_crashed_pods
         run: |
           echo "crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l)" >> "$GITHUB_OUTPUT"
+          crashed_pods_count=$(kubectl get pods -A | awk 'NR!=1 {print $4}' | grep -v 'Running' | wc -l)
           crashed_pods_list=$(kubectl get pods -A | awk 'NR!=1 && $4 != "Running" {print $1"/"$2}')
           echo "Crashed pods: $crashed_pods_count"
           echo "Crashed pods list: $crashed_pods_list"
@@ -70,4 +71,4 @@ jobs:
           SLACK_MESSAGE: Some of pods have crashed
           SLACK_TITLE: Pods issue
           SLACK_USERNAME: test
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
