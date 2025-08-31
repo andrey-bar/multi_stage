@@ -12,6 +12,8 @@ jobs:
   setup_minikube:
     name: test minikube setup
     runs-on: ubuntu-latest
+    outputs:
+      my_output: ${{ steps.set_value.outputs.result }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
