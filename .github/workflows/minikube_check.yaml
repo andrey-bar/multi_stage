@@ -13,7 +13,7 @@ jobs:
     name: test minikube setup
     runs-on: ubuntu-latest
     outputs:
-      my_output: ${{ steps.check_crashed_pods.outputs.crashed_pods_count }}
+      crashed_pods_count: ${{ steps.check_crashed_pods.outputs.crashed_pods_count }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
@@ -58,7 +58,7 @@ jobs:
 
       - name: Slack Notify
         run: |
-          echo ${{steps.check_crashed_pods.outputs.crashed_pods_count}}
+          echo ${{ steps.check_crashed_pods.outputs.crashed_pods_count }}
           echo "$steps.check_crashed_pods.outputs.crashed_pods_count"
           echo "$GITHUB_OUTPUT"
         #if: steps.check_crashed_pods.outputs.crashed_pods_count > 0
