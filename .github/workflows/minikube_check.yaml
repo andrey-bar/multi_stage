@@ -65,7 +65,7 @@ jobs:
         if: steps.check_crashed_pods.outputs.crashed_pods_count > 0
         run: |
           message="🚨 $crashed_pods_count crashed pods:\n$(echo "$crashed_pods_list" | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')"
-          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$message\"}" "$SLACK_WEBHOOK_URL"
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$message\"}"  ${{ secrets.SLACK_WEBHOOK_URL }}
        # uses: rtCamp/action-slack-notify@v2
        # env:
        #   SLACK_CHANNEL: test-notification
